@@ -1,6 +1,7 @@
 package randompsswd
 
 import (
+	"errors"
 	"math/rand"
 	"time"
 )
@@ -13,7 +14,18 @@ const (
 )
 
 // function naming in Cap's can be used in other packages
-func GenerateRandomPassword(length int) string {
+// can return two variables
+func GenerateRandomPassword(length int) (string, error) {
+
+	// If no invalid was given, return an error with a message.
+	if length <= 0 {
+		return "", errors.New("Invalid password length")
+	}
+
+	if length > 15 {
+		return "", errors.New("password length exceeds maximum")
+	}
+
 	// seed the random number genarator with current time nanoseconds
 	rand.New(rand.NewSource(time.Now().UnixNano()))
 
@@ -32,5 +44,5 @@ func GenerateRandomPassword(length int) string {
 	}
 
 	// converting byte to string
-	return string(password)
+	return string(password), nil
 }
