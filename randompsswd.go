@@ -1,5 +1,5 @@
 // reference --->>> https://go.dev/doc/tutorial/create-module
-package main
+package randompasswd
 
 import (
 	"errors"
